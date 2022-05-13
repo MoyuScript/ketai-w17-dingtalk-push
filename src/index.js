@@ -32,8 +32,9 @@ ketaiWs.subscribeDevice(device.did, (data) => {
   console.log(data);
 
   if (data.type === 'push' && data.data.PushFlag) {
+    const textBufferArray = data.data.PushText.filter(byte => byte !== 0);
     // 报警
-    const text = Buffer.from(data.data.PushText).toString('utf-8');
+    const text = Buffer.from(textBufferArray).toString('utf-8');
     send({
       accessToken: env.DING_TOKEN,
       secret: env.DING_SECRET,
